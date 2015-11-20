@@ -43,9 +43,9 @@ for i, sentence in enumerate(sentences):
 print('Build model...')
 model = Sequential()
 model.add(LSTM(512, return_sequences=True, input_shape=(maxlen, len(chars))))
-model.add(Dropout(0.2))
+model.add(Dropout(0.5))
 model.add(LSTM(512, return_sequences=False))
-model.add(Dropout(0.2))
+model.add(Dropout(0.5))
 model.add(Dense(len(chars)))
 model.add(Activation('softmax'))
 
@@ -60,12 +60,12 @@ def sample(a, temperature=1.0):
     return np.argmax(np.random.multinomial(1, a, 1))
 
 # train the model, output generated text after each iteration
-for iteration in range(1, 60):
+for iteration in range(1, 50):
     print()
     print('-' * 50)
     print('Iteration', iteration)
     model.fit(X, y, batch_size=128, nb_epoch=1)
-
+    model.save_weights('fitted_model.hf5',overwrite=True)
     start_index = random.randint(0, len(text) - maxlen - 1)
 
     for diversity in [0.2, 0.5, 1.0, 1.2]:
