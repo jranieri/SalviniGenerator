@@ -8,7 +8,7 @@ import random
 import sys
 
 '''
-    Example script to generate text from Salvini's facebook
+    Example script to generate text from Salvini's facebook, using RNN
 '''
 
 path = 'Matteo Salvini.txt'
